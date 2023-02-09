@@ -1,7 +1,12 @@
 <template>
   <div>
-    <search-bar></search-bar>
+    <search-bar @search-event="getPokemonData($event)"></search-bar>
     <pokemon-card :name="pokemon.name" :image="pokemon.sprites.front_default" />
+    <pokemon-side-bar
+      :name="pokemon.name"
+      :type="pokemon.types[0].type.name"
+      :image="pokemon.sprites.front_default"
+    />
   </div>
 </template>
 
@@ -9,28 +14,40 @@
 import axios from "axios";
 import SearchBar from "../components/PokemonSearchBar.vue";
 import PokemonCard from "../components/PokemonCard.vue";
+import PokemonSideBar from "../components/PokeonSideBar.vue";
 
 export default {
   name: "App",
-  components: { SearchBar, PokemonCard },
+  components: { SearchBar, PokemonCard, PokemonSideBar },
 
   data: () => ({
     pokemon: {},
+    evolutions: {},
   }),
   created() {
-    this.getPokemons();
+    this.getPokemonData("ditto");
   },
   methods: {
-    async getPokemons() {
+    async getPokemonData(pokemonName) {
+      this.pokemon = await this.getPokemons(pokemonName);
+      this.evolutions = await this.getEvolutions(this.pokemon.id);
+    },
+    async getPokemons(pokemonName) {
       const { data } = await axios.get(
-        "https://pokeapi.co/api/v2/pokemon/ditto"
+        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
       );
-      this.pokemon = await data;
+      console.log("🚀 ~ file: PokemonsView.vue:33 ~ getPokemons ~ data", data);
+      return data;
+    },
+    async getEvolutions(pokemonId) {
+      const { data } = await axios.get(
+        `https://pokeapi.co/api/v2/evolution-chain/${pokemonId}/`
+      );
       console.log(
-        "🚀 ~ file: PokemonsView.vue:31 ~ getPokemons ~ this.pokemons",
-        this.pokemon.sprites
+        "🚀 ~ file: PokemonsView.vue:40 ~ getEvolutions ~ data",
+        data
       );
-      console.log("🚀 ~ file: PokemonsView.vue:26 ~ getPokemons ~ data", data);
+      return data;
     },
   },
 };
