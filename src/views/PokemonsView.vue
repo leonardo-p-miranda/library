@@ -2,11 +2,6 @@
   <div>
     <search-bar @search-event="getPokemonData($event)"></search-bar>
     <pokemon-card :name="pokemon.name" :image="pokemon.sprites.front_default" />
-    <pokemon-side-bar
-      :name="pokemon.name"
-      :type="pokemon.types[0].type.name"
-      :image="pokemon.sprites.front_default"
-    />
   </div>
 </template>
 
@@ -14,11 +9,9 @@
 import axios from "axios";
 import SearchBar from "../components/PokemonSearchBar.vue";
 import PokemonCard from "../components/PokemonCard.vue";
-import PokemonSideBar from "../components/PokeonSideBar.vue";
-
 export default {
   name: "App",
-  components: { SearchBar, PokemonCard, PokemonSideBar },
+  components: { SearchBar, PokemonCard },
 
   data: () => ({
     pokemon: {},
