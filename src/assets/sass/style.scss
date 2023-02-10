@@ -1,0 +1,98 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url('~@/assets/fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat Alternates';
+  src: url('~@/assets/fonts/Montserrat-SemiBold.ttf') format('truetype');
+}
+
+* {
+  font-family: 'Montserrat' !important;
+}
+
+
+.montserrat-alternates {
+  font-family: 'Montserrat Alternates' !important;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+p, h1, .title, .text-h1, .text-h2 {
+  text-transform: capitalize !important;
+}
+
+.normal {
+  background-color: rgb(240, 240, 220) !important;
+}
+
+.fighting {
+  background-color: rgb(224, 77, 77) !important;
+}
+
+.flying {
+  background-color: rgb(243, 137, 243) !important;
+}
+
+.poison {
+  background-color: rgb(154, 240, 154) !important;
+}
+
+.ground {
+  background-color: rgb(238, 238, 146) !important;
+}
+
+.rock {
+  background-color: rgb(211, 211, 211) !important;
+}
+
+.bug {
+  background-color: rgb(125, 245, 125) !important;
+}
+
+.ghost {
+  background-color: rgb(212, 105, 212) !important;
+}
+
+.steel {
+  background-color: rgb(238, 238, 238) !important;
+}
+
+.fire {
+  background-color: rgb(241, 161, 129) !important;
+}
+
+.water {
+  background-color: rgb(173, 216, 230) !important;
+}
+
+.grass {
+  background-color: rgb(132, 216, 132) !important;
+}
+
+.electric {
+  background-color: rgb(255, 255, 149) !important;
+}
+
+.psychic {
+  background-color: rgb(250, 195, 205) !important;
+}
+
+.ice {
+  background-color: rgb(150, 216, 238) !important;
+}
+
+.dragon {
+  background-color: rgb(219, 82, 219) !important;
+}
+
+.dark {
+  background-color: rgb(136, 136, 136) !important;
+}
+
+.fairy {
+  background-color: rgb(255, 181, 192) !important;
+}
