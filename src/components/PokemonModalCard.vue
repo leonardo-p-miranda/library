@@ -1,11 +1,11 @@
 <template>
   <v-card height="800" class="d-flex flex-column rounded-xl pa-4 justify-start">
     <v-card-title class="pb-4 d-flex justify-space-between align-center">
-      <span class="text-h6 title text--primary mt-0 montserrat-alternates">
+      <span class="text-h6 title mt-0 montserrat-alternates">
         {{ info.name }}
       </span>
       <div class="type-icons d-flex flex-row gap-10">
-        <span class="text-h6 title text--primary mt-0 montserrat-alternates">
+        <span class="text-h6 title mt-0 montserrat-alternates">
           <span
             class="text-caption montserrat-alternates"
             style="font-size: 10px"
@@ -44,11 +44,26 @@
           </span>
         </div>
       </div>
+      <div class="w100 d-flex justify-center mt-10">
+        <v-btn
+          class="rounded-lg"
+          depressed
+          :to="`/pokemon/${info.name}`"
+          width="250"
+          color="#F5F5F5"
+        >
+          <span class="montserrat-alternates title">See all details</span>
+          <svg-icon class="ml-3" size="16" type="mdi" :path="path"></svg-icon>
+        </v-btn>
+      </div>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+import SvgIcon from "@jamescoyle/vue-icon";
+import { mdiArrowExpandAll } from "@mdi/js";
+
 export default {
   props: {
     info: {
@@ -60,6 +75,12 @@ export default {
       required: true,
     },
   },
+  components: {
+    SvgIcon,
+  },
+  data: () => ({
+    path: mdiArrowExpandAll,
+  }),
   methods: {
     getIcon(icon) {
       return require(`@/assets/${icon}.svg`);

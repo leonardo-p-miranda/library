@@ -1,5 +1,5 @@
 <template>
-  <v-container class="search-bar-container d-flex justify-center align-center">
+  <v-container class="search-bar-container">
     <v-row>
       <v-col cols="12" class="d-flex justify-center">
         <img height="40" :src="require('../assets/logo.png')" alt="" />
@@ -7,11 +7,11 @@
       <v-col class="d-flex justify-center align-center">
         <v-text-field
           class="text-field roundex-xl"
-          label="Buscar um Pokemon"
+          label="Search for a Pokemon"
           filled
           rounded
           dense
-          hint="Por exemplo, Charmander..."
+          hint="For example: Charmander..."
           v-model="search"
           @keydown.enter="emitSearch()"
         ></v-text-field>
