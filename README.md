@@ -1,12 +1,12 @@
 # Pokedex 🎮
 
-A Pokedex application built with Vue.js, Pinia, and Axios, designed to help Pokemon fans learn more about their favorite Pokemon. This repository contains the source code for the app. The data for the Pokemon is fetched from pokeapi.co.
+A Pokedex application built with Vue.js, Pinia, and Vue Routers, designed to help Pokemon fans learn more about their favorite Pokemon. This repository contains the source code for the app. The data for the Pokemon is fetched from pokeapi.co, the program is all in english cause the api is in english.
 
 ## ⚡️ Features
 
-- Browse through a list of Pokemon and see their sprites, names, XP, and basic stats. 🔎
 - Search for a specific Pokemon by name or number. 🔍
 - View the basic stats of a Pokemon when clicking on its card. 📊
+- View more about the pokemon clicking on see details. 📊
 
 ## 🚀 Getting Started
 
