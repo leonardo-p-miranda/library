@@ -1,5 +1,8 @@
 <template>
-  <v-card height="800" class="d-flex flex-column rounded-xl pa-4 justify-start">
+  <v-card
+    height="900"
+    class="pokemon-modal-card d-flex flex-column rounded-xl pa-4 justify-start"
+  >
     <v-card-title class="pb-4 d-flex justify-space-between align-center">
       <span class="text-h6 title mt-0 montserrat-alternates">
         {{ info.name }}
@@ -24,15 +27,15 @@
     <v-card-text>
       <div
         :class="
-          'image-wrapper mb-6 rounded-xl d-flex justify-center ' +
+          'image-wrapper mb-6 mt-3 rounded-xl d-flex justify-center ' +
           info.types[0].type.name
         "
       >
-        <img class="pokemon-image" :src="image" alt="" height="250" />
+        <img class="pokemon-image" :src="image" alt="" height="220" />
       </div>
       <div class="stats mx-1">
         <div
-          class="stats-line d-flex justify-space-between"
+          class="stats-line d-flex justify-space-between mt-1"
           v-for="stat in info.stats"
           :key="stat.name"
         >
@@ -44,7 +47,7 @@
           </span>
         </div>
       </div>
-      <div class="w100 d-flex justify-center mt-10">
+      <div class="w100 d-flex justify-center mt-6">
         <v-btn
           class="rounded-lg"
           depressed
@@ -93,8 +96,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.image-wrapper {
-  height: 150px;
-  align-items: center;
+.pokemon-modal-card {
+  .image-wrapper {
+    height: 150px;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>

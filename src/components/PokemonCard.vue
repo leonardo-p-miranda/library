@@ -2,12 +2,19 @@
   <v-card
     height="250"
     width="200"
-    :disabled="disabled"
     @click.stop="dialog = true"
-    :class="
-      'd-flex flex-column rounded-xl justify-center ' + info.types[0].type.name
-    "
+    :disabled="disabled || loading"
+    :class="[
+      'pokemon-card d-flex flex-column rounded-xl justify-center',
+      info.types[0].type.name,
+    ]"
   >
+    <v-progress-linear
+      color="deep-purple"
+      height="10"
+      indeterminate
+      v-if="loading"
+    ></v-progress-linear>
     <v-card-text class="pb-0 d-flex justify-space-between">
       <span
         class="text-subtitle-1 mt-1 title text--primary mt-0 montserrat-alternates"
@@ -33,7 +40,7 @@
       <img class="pokemon-image" :src="image" alt="" height="150" />
     </v-card-text>
   </v-card>
-  <v-dialog v-model="dialog" width="500">
+  <v-dialog scrollable v-model="dialog" width="500">
     <pokemon-modal-card :info="info" :image="image"></pokemon-modal-card>
   </v-dialog>
 </template>
@@ -53,6 +60,9 @@ export default {
     disabled: {
       type: Boolean,
     },
+    loading: {
+      type: Boolean,
+    },
   },
   components: {
     PokemonModalCard,
@@ -62,7 +72,6 @@ export default {
   }),
   methods: {
     getIcon(icon) {
-      console.log("🚀 ~ file: PokemonCard.vue:44 ~ getIcon ~ icon", icon);
       return require(`@/assets/${icon}.svg`);
     },
   },
@@ -70,10 +79,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pokemon-image {
-  object-fit: contain;
-}
-.title {
-  text-transform: capitalize !important;
+.pokemon-card {
+  .pokemon-image {
+    object-fit: contain;
+  }
+  .title {
+    text-transform: capitalize !important;
+  }
 }
 </style>

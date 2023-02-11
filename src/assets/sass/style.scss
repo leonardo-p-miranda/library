@@ -8,10 +8,13 @@
   src: url('~@/assets/fonts/Montserrat-SemiBold.ttf') format('truetype');
 }
 
-* {
+*, body, html {
   font-family: 'Montserrat' !important;
 }
 
+/* html, body {
+  overflow: hidden !important;
+} */
 
 .montserrat-alternates {
   font-family: 'Montserrat Alternates' !important;
@@ -90,7 +93,7 @@ p, h1, .title, .text-h1, .text-h2 {
 }
 
 .dragon {
-  background-color: rgb(219, 82, 219) !important;
+  background-color: rgb(240, 114, 240) !important;
 }
 
 .dark {

@@ -54,7 +54,7 @@ export const usePokemonStore = defineStore("pokemon", {
           );
           evolutions.push(pokemon.data);
         } else {
-          evolutions.push(this.currentPokemon);
+          evolutions.push({ ...this.currentPokemon, selected: true });
         }
 
         for (const evolvesTo of currentPokemon.evolves_to) {
