@@ -14,19 +14,20 @@
     ></v-container>
     <v-container class="mb-5" v-else>
       <v-row class="mb-4">
-        <v-col cols="12" :class="start ? 'centered-bar' : ''">
+        <v-col cols="12">
           <search-bar @search-event="getPokemonData($event)"></search-bar>
         </v-col>
       </v-row>
       <transition>
         <v-row v-if="Object.keys(currentPokemon).length">
-          <v-col xs="12" sm="12" md="3">
+          <v-col cols="12" sm="12" md="6" lg="3">
             <div class="column-title">
               <span class="text-subtitle-1 montserrat-alternates">
                 My Pokemon
               </span>
             </div>
             <pokemon-card
+              :elevated="true"
               :loading="loadingPokemon"
               :info="currentPokemon"
               :image="currentPokemon.sprites.front_default"
@@ -34,9 +35,10 @@
           </v-col>
           <v-col
             v-for="(evolution, index) in evolutions"
-            xs="12"
+            cols="12"
             sm="12"
-            md="3"
+            md="6"
+            lg="3"
             :key="index"
           >
             <div class="column-title">
@@ -73,7 +75,7 @@
 </template>
 
 <script>
-import SearchBar from "../components/PokemonSearchBar.vue";
+import SearchBar from "../components/PokemonsSearchBar.vue";
 import PokemonCard from "../components/PokemonCard.vue";
 import { usePokemonStore } from "@/store/usePokemonStore";
 import { mapWritableState } from "pinia";
@@ -97,8 +99,7 @@ export default {
     this.start = true;
   },
   computed: {
-    ...mapWritableState(usePokemonStore, ["currentPokemon"]),
-    ...mapWritableState(usePokemonStore, ["evolutions"]),
+    ...mapWritableState(usePokemonStore, ["currentPokemon", "evolutions"]),
     images() {
       return {
         front: this.pokemon.sprites.front_default,
@@ -132,13 +133,6 @@ export default {
   .v-leave-to {
     opacity: 0;
   }
-
-  .centered-bar {
-    height: 90vh;
-    display: flex;
-    align-items: center;
-  }
-
   .column-title {
     height: 40px;
     margin: 0 5px;

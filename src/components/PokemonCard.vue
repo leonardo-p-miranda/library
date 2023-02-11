@@ -1,5 +1,6 @@
 <template>
   <v-card
+    :elevation="elevated ? 12 : 1"
     height="250"
     width="200"
     @click.stop="dialog = true"
@@ -61,6 +62,9 @@ export default {
       type: Boolean,
     },
     loading: {
+      type: Boolean,
+    },
+    elevated: {
       type: Boolean,
     },
   },

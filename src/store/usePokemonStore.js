@@ -5,16 +5,23 @@ export const usePokemonStore = defineStore("pokemon", {
   state: () => ({
     currentPokemon: {},
     evolutions: [],
+    regionInfo: [],
+    speciesInfo: {},
   }),
   getters: {
     currentPokemonName(state) {
       return state.currentPokemon.name;
     },
+    allPokemonInfos() {
+      return {
+        currentPokemon: this.currentPokemon,
+        evolutionInfo: this.evolutions,
+        regionInfo: this.regionInfo,
+        speciesInfo: this.speciesInfo,
+      };
+    },
   },
   actions: {
-    addPokemon(pokemon) {
-      this.currentPokemon = pokemon;
-    },
     async getPokemon(pokemonName) {
       try {
         const { data } = await axios.get(
@@ -65,6 +72,21 @@ export const usePokemonStore = defineStore("pokemon", {
       await getEvolutions(evolutionDetails);
 
       this.evolutions = evolutions;
+    },
+    async getRegionInfo() {
+      const regionRequestUrl = this.currentPokemon.location_area_encounters;
+      try {
+        const { data } = await axios.get(regionRequestUrl);
+
+        this.regionInfo = data;
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          console.error(`Region not found.`);
+          this.regionInfo = [];
+        } else {
+          throw error;
+        }
+      }
     },
   },
 });
