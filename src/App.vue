@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :class="darkMode ? 'dark-mode' : ''">
     <v-main>
       <router-view />
     </v-main>
@@ -7,7 +7,12 @@
 </template>
 
 <script>
+import { usePokemonStore } from "@/store/usePokemonStore";
+import { mapWritableState } from "pinia";
 export default {
   name: "App",
+  computed: {
+    ...mapWritableState(usePokemonStore, ["darkMode"]),
+  },
 };
 </script>

@@ -2,14 +2,14 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
-    path: "/pokemon/:id",
-    name: "pokemon",
+    path: "/book/:id",
+    name: "book",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/PokemonDetailsView.vue"),
   },
   {
     path: "/",
-    name: "pokemons",
+    name: "books",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/PokemonsView.vue"),
   },

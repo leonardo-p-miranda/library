@@ -1,8 +1,15 @@
 <template>
   <v-container class="search-bar-container">
+    <v-switch
+      :label="darkMode ? 'Light' : 'Dark'"
+      @change="toggleTheme()"
+      hide-details
+    ></v-switch>
     <v-row>
       <v-col cols="12" class="d-flex justify-center">
-        <img height="40" :src="require('../assets/logo.png')" alt="" />
+        <router-link to="/" @click="$router.go()">
+          <img height="40" :src="require('../assets/logo.png')" alt="" />
+        </router-link>
       </v-col>
     </v-row>
     <v-row>
@@ -21,6 +28,9 @@
 </template>
 
 <script>
+import { usePokemonStore } from "@/store/usePokemonStore";
+import { mapWritableState } from "pinia";
+
 export default {
   data: () => ({
     search: "",
@@ -29,6 +39,12 @@ export default {
     emitSearch() {
       this.$emit("search-event", this.search.toLowerCase());
     },
+    toggleTheme() {
+      this.darkMode = !this.darkMode;
+    },
+  },
+  computed: {
+    ...mapWritableState(usePokemonStore, ["darkMode"]),
   },
 };
 </script>

@@ -1,12 +1,13 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-export const usePokemonStore = defineStore("pokemon", {
+export const usePokemonStore = defineStore("book", {
   state: () => ({
     currentPokemon: {},
     evolutions: [],
     regionInfo: [],
     speciesInfo: {},
+    darkMode: true,
   }),
   getters: {
     currentPokemonName(state) {
@@ -33,51 +34,57 @@ export const usePokemonStore = defineStore("pokemon", {
         if (error.response && error.response.status === 404) {
           console.error(`Pokemon "${pokemonName}" not found.`);
           this.currentPokemon = {};
-        } else {
-          throw error;
         }
+        throw error;
       }
     },
     async getEvolutionChain(pokemonName) {
-      const evolutionChainUrl = this.currentPokemon?.species.url;
+      try {
+        const evolutionChainUrl = this.currentPokemon?.species.url;
 
-      const evolutionResponse = await axios.get(evolutionChainUrl);
-      const evolutionData = evolutionResponse.data;
-      const evolutionChain = evolutionData.evolution_chain.url;
+        const evolutionResponse = await axios.get(evolutionChainUrl);
+        const evolutionData = evolutionResponse.data;
+        const evolutionChain = evolutionData.evolution_chain.url;
 
-      const finalResponse = await axios.get(evolutionChain);
-      const finalData = finalResponse.data;
+        const finalResponse = await axios.get(evolutionChain);
+        const finalData = finalResponse.data;
 
-      const evolutionDetails = finalData.chain;
-      let evolutions = [];
+        const evolutionDetails = finalData.chain;
+        let evolutions = [];
 
-      const getEvolutions = async (currentPokemon) => {
-        const pokemonResponse = await axios.get(currentPokemon.species.url);
-        const pokemonData = pokemonResponse.data;
+        const getEvolutions = async (currentPokemon) => {
+          try {
+            const pokemonResponse = await axios.get(currentPokemon.species.url);
+            const pokemonData = pokemonResponse.data;
 
-        if (pokemonData.name !== pokemonName) {
-          const pokemon = await axios.get(
-            `https://pokeapi.co/api/v2/pokemon/${pokemonData.name}`
-          );
-          evolutions.push(pokemon.data);
-        } else {
-          evolutions.push({ ...this.currentPokemon, selected: true });
-        }
+            if (pokemonData.name !== pokemonName) {
+              const book = await axios.get(
+                `https://pokeapi.co/api/v2/pokemon/${pokemonData.name}`
+              );
+              evolutions.push(book.data);
+            } else {
+              evolutions.push({ ...this.currentPokemon, selected: true });
+            }
 
-        for (const evolvesTo of currentPokemon.evolves_to) {
-          await getEvolutions(evolvesTo);
-        }
-      };
+            for (const evolvesTo of currentPokemon.evolves_to) {
+              await getEvolutions(evolvesTo);
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        };
 
-      await getEvolutions(evolutionDetails);
+        await getEvolutions(evolutionDetails);
 
-      this.evolutions = evolutions;
+        this.evolutions = evolutions;
+      } catch (error) {
+        console.error(error);
+      }
     },
     async getRegionInfo() {
       const regionRequestUrl = this.currentPokemon.location_area_encounters;
       try {
         const { data } = await axios.get(regionRequestUrl);
-
         this.regionInfo = data;
       } catch (error) {
         if (error.response && error.response.status === 404) {

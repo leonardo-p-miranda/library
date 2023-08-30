@@ -1,7 +1,11 @@
 <template>
   <v-card
+    :color="darkMode ? '#18181f' : '#fff'"
     height="900"
-    class="pokemon-modal-card d-flex flex-column rounded-xl pa-4 justify-start"
+    :class="[
+      'book-modal-card d-flex flex-column rounded-xl pa-4 justify-start ',
+      darkMode ? ' dark-mode' : '',
+    ]"
   >
     <v-card-title class="pb-4 d-flex justify-space-between align-center">
       <span class="text-h6 title mt-0 montserrat-alternates">
@@ -31,7 +35,12 @@
           info.types[0].type.name
         "
       >
-        <img class="pokemon-image" :src="image" alt="" height="220" />
+        <img
+          class="book-image"
+          :src="require('../assets/book.png')"
+          alt=""
+          height="220"
+        />
       </div>
       <div class="stats mx-1">
         <div
@@ -51,9 +60,9 @@
         <v-btn
           class="rounded-lg"
           depressed
-          :to="`/pokemon/${info.name}`"
+          :to="link"
           width="250"
-          color="#F5F5F5"
+          :color="darkMode ? 'black' : '#F5F5F5'"
         >
           <span class="montserrat-alternates title">See all details</span>
           <svg-icon class="ml-3" size="16" type="mdi" :path="path"></svg-icon>
@@ -66,6 +75,8 @@
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiArrowExpandAll } from "@mdi/js";
+import { usePokemonStore } from "@/store/usePokemonStore";
+import { mapWritableState } from "pinia";
 
 export default {
   props: {
@@ -86,17 +97,23 @@ export default {
   }),
   methods: {
     getIcon(icon) {
-      return require(`@/assets/${icon}.svg`);
+      return require(`@/assets/icons/${icon}.svg`);
     },
     formatTitle(title) {
       return title.replace("-", " ");
     },
   },
+  computed: {
+    link() {
+      return `/book/${this.info.name}`;
+    },
+    ...mapWritableState(usePokemonStore, ["darkMode"]),
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.pokemon-modal-card {
+.book-modal-card {
   .image-wrapper {
     height: 150px;
     align-items: center;
