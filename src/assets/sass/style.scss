@@ -1,15 +1,21 @@
 @font-face {
-  font-family: 'Montserrat';
-  src: url('~@/assets/fonts/Montserrat-Regular.ttf') format('truetype');
+  font-family: "Montserrat";
+  src: url("~@/assets/fonts/Montserrat-Regular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Montserrat Alternates';
-  src: url('~@/assets/fonts/Montserrat-SemiBold.ttf') format('truetype');
+  font-family: "Montserrat Alternates";
+  src: url("~@/assets/fonts/Montserrat-SemiBold.ttf") format("truetype");
 }
 
-*, body, html {
-  font-family: 'Montserrat' !important;
+body,
+html {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+* {
+  font-family: "Montserrat" !important;
 }
 
 /* html, body {
@@ -17,89 +23,172 @@
 } */
 
 .montserrat-alternates {
-  font-family: 'Montserrat Alternates' !important;
+  font-family: "Montserrat Alternates" !important;
 }
 
 .gap-10 {
   gap: 10px;
 }
 
+.gap-25 {
+  gap: 25px;
+}
+
 .w100 {
   width: 100%;
 }
 
-p, h1, .title, .text-h1, .text-h2 {
+.h100vh {
+  height: 100vh;
+}
+
+.h90vh {
+  height: 90vh;
+}
+
+.loader-animation {
+  animation: load 3s;
+  animation-iteration-count: infinite;
+}
+@keyframes load {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+p,
+h1,
+.title,
+.text-h1,
+.text-h2 {
   text-transform: capitalize !important;
 }
 
+.cursor-pointer:hover {
+  cursor: pointer;
+}
+
+:root {
+  --normal-color: rgb(87, 140, 233);
+  --fighting-color: rgb(224, 77, 77);
+  --flying-color: rgb(247, 82, 247);
+  --poison-color: rgb(80, 228, 80);
+  --ground-color: rgb(248, 248, 83);
+  --rock-color: rgb(123, 123, 123);
+  --bug-color: rgb(63, 223, 63);
+  --ghost-color: rgb(194, 27, 194);
+  --steel-color: rgb(68, 120, 210);
+  --fire-color: #ff7138;
+  --water-color: rgb(86, 195, 232);
+  --grass-color: rgb(73, 211, 73);
+  --electric-color: rgb(245, 245, 69);
+  --psychic-color: rgb(255, 116, 141);
+  --ice-color: rgb(38, 185, 235);
+  --dragon-color: rgb(240, 114, 240);
+  --dark-color: rgb(90, 93, 99);
+  --fairy-color: rgb(219, 83, 104);
+  --secondary-dark: #18181f;
+  --base-dark: #121218;
+}
+
 .normal {
-  background-color: rgb(240, 240, 220) !important;
+  background-color: var(--normal-color) !important;
 }
 
 .fighting {
-  background-color: rgb(224, 77, 77) !important;
+  background-color: var(--fighting-color) !important;
 }
 
 .flying {
-  background-color: rgb(243, 137, 243) !important;
+  background-color: var(--flying-color) !important;
 }
 
 .poison {
-  background-color: rgb(154, 240, 154) !important;
+  background-color: var(--poison-color) !important;
 }
 
 .ground {
-  background-color: rgb(238, 238, 146) !important;
+  background-color: var(--ground-color) !important;
 }
 
 .rock {
-  background-color: rgb(211, 211, 211) !important;
+  background-color: var(--rock-color) !important;
 }
 
 .bug {
-  background-color: rgb(125, 245, 125) !important;
+  background-color: var(--bug-color) !important;
 }
 
 .ghost {
-  background-color: rgb(212, 105, 212) !important;
+  background-color: var(--ghost-color) !important;
 }
 
 .steel {
-  background-color: rgb(238, 238, 238) !important;
+  background-color: var(--steel-color) !important;
 }
 
 .fire {
-  background-color: rgb(241, 161, 129) !important;
+  background-color: var(--fire-color) !important;
 }
 
 .water {
-  background-color: rgb(173, 216, 230) !important;
+  background-color: var(--water-color) !important;
 }
 
 .grass {
-  background-color: rgb(132, 216, 132) !important;
+  background-color: var(--grass-color) !important;
 }
 
 .electric {
-  background-color: rgb(255, 255, 149) !important;
+  background-color: var(--electric-color) !important;
 }
 
 .psychic {
-  background-color: rgb(250, 195, 205) !important;
+  background-color: var(--psychic-color) !important;
 }
 
 .ice {
-  background-color: rgb(150, 216, 238) !important;
+  background-color: var(--ice-color) !important;
 }
 
 .dragon {
-  background-color: rgb(240, 114, 240) !important;
+  background-color: var(--dragon-color) !important;
 }
 
 .dark {
-  background-color: rgb(136, 136, 136) !important;
+  background-color: var(--dark-color) !important;
 }
 
 .fairy {
-  background-color: rgb(255, 181, 192) !important;
+  background-color: var(--fairy-color) !important;
+}
+
+.dark-mode {
+  & > * {
+    color: #fff !important;
+    background: var(--secondary-dark) !important;
+  }
+  .v-card,
+  .book-modal-card {
+    background: var(--base-dark) !important;
+    & > * {
+      color: #fff !important;
+    }
+  }
+}
+
+.v-row {
+  margin-bottom: 0 !important;
 }

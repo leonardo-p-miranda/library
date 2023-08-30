@@ -5,23 +5,31 @@ export const usePokemonStore = defineStore("pokemon", {
   state: () => ({
     currentPokemon: {},
     evolutions: [],
+    regionInfo: [],
+    speciesInfo: {},
+    allPokemons: [],
   }),
   getters: {
     currentPokemonName(state) {
       return state.currentPokemon.name;
     },
+    allPokemonInfos() {
+      return {
+        currentPokemon: this.currentPokemon,
+        evolutionInfo: this.evolutions,
+        regionInfo: this.regionInfo,
+        speciesInfo: this.speciesInfo,
+      };
+    },
   },
   actions: {
-    addPokemon(pokemon) {
-      this.currentPokemon = pokemon;
-    },
     async getPokemon(pokemonName) {
       try {
         const { data } = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
         );
 
-        this.currentPokemon = data;
+        this.allPokemons = data;
       } catch (error) {
         if (error.response && error.response.status === 404) {
           console.error(`Pokemon "${pokemonName}" not found.`);
@@ -29,6 +37,15 @@ export const usePokemonStore = defineStore("pokemon", {
         } else {
           throw error;
         }
+      }
+    },
+    async getAllPokemons() {
+      try {
+        const { data } = await axios.get("https://pokeapi.co/api/v2/pokemon");
+
+        this.allPokemons = data.results;
+      } catch (error) {
+        console.error(`Pokemons not found. ${error}`);
       }
     },
     async getEvolutionChain(pokemonName) {
@@ -65,6 +82,21 @@ export const usePokemonStore = defineStore("pokemon", {
       await getEvolutions(evolutionDetails);
 
       this.evolutions = evolutions;
+    },
+    async getRegionInfo() {
+      const regionRequestUrl = this.currentPokemon.location_area_encounters;
+      try {
+        const { data } = await axios.get(regionRequestUrl);
+
+        this.regionInfo = data;
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          console.error(`Region not found.`);
+          this.regionInfo = [];
+        } else {
+          throw error;
+        }
+      }
     },
   },
 });

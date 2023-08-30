@@ -1,11 +1,12 @@
 <template>
   <v-card
+    :elevation="elevated ? 12 : 1"
     height="250"
     width="200"
     @click.stop="dialog = true"
     :disabled="disabled || loading"
     :class="[
-      'pokemon-card d-flex flex-column rounded-xl justify-center',
+      'book-card d-flex flex-column rounded-xl justify-center',
       info.types[0].type.name,
     ]"
   >
@@ -23,7 +24,7 @@
       </span>
       <span class="text-h6 title text--primary mt-0 montserrat-alternates">
         <span class="text-caption montserrat-alternates" style="font-size: 10px"
-          >XP</span
+          >Uts.</span
         >{{ info.base_experience }}
       </span>
     </v-card-text>
@@ -37,16 +38,21 @@
           <img height="20" :src="getIcon(pokeType.type.name)" alt="" />
         </div>
       </div>
-      <img class="pokemon-image" :src="image" alt="" height="150" />
+      <img
+        class="book-image"
+        :src="require('../assets/book.png')"
+        alt=""
+        height="150"
+      />
     </v-card-text>
   </v-card>
   <v-dialog scrollable v-model="dialog" width="500">
-    <pokemon-modal-card :info="info" :image="image"></pokemon-modal-card>
+    <book-modal-card :info="info" :image="image"></book-modal-card>
   </v-dialog>
 </template>
 
 <script>
-import PokemonModalCard from "./PokemonModalCard.vue";
+import BookModalCard from "./BookModalCard.vue";
 export default {
   props: {
     info: {
@@ -63,28 +69,28 @@ export default {
     loading: {
       type: Boolean,
     },
+    elevated: {
+      type: Boolean,
+    },
   },
   components: {
-    PokemonModalCard,
+    BookModalCard,
   },
   data: () => ({
     dialog: false,
   }),
   methods: {
     getIcon(icon) {
-      return require(`@/assets/${icon}.svg`);
+      return require(`@/assets/icons/${icon}.svg`);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.pokemon-card {
-  .pokemon-image {
+.book-card {
+  .book-image {
     object-fit: contain;
-  }
-  .title {
-    text-transform: capitalize !important;
   }
 }
 </style>
